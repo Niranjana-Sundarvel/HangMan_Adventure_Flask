@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HangMan Adventure</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <button class="icon-btn" id="soundToggle" aria-label="Toggle sound">🔊</button>
+      <div class="brand">🌿 HangMan Adventure</div>
+      <button class="icon-btn" id="settingsBtn" aria-label="Settings">⚙️</button>
+    </header>
+
+    <section id="welcomeScreen" class="screen welcome-screen">
+      <div class="welcome-art">
+        <div class="sun"></div><div class="cloud cloud-one"></div><div class="cloud cloud-two"></div>
+        <div class="wood-sign"><span>HangMan</span><small>ADVENTURE</small></div>
+        <div class="bush bush-left"></div><div class="bush bush-right"></div>
+      </div>
+      <p class="eyebrow">A fun word guessing game</p>
+      <h1>Ready for an adventure?</h1>
+      <p class="muted">Choose a category, select your difficulty and guess the hidden word!</p>
+      <button class="primary-btn" id="startBtn">Start Game <span>➜</span></button>
+    </section>
+
+    <section id="categoryScreen" class="screen hidden">
+      <h1>Choose Category</h1>
+      <p class="muted">Pick the topic for your mystery word.</p>
+      <div class="category-grid" id="categoryGrid"></div>
+      <div class="nav-row"><button class="secondary-btn" data-back="welcomeScreen">← Back</button><button class="primary-btn" id="categoryNext">Continue →</button></div>
+    </section>
+
+    <section id="difficultyScreen" class="screen hidden">
+      <h1>Choose Difficulty Level</h1>
+      <p class="muted">How challenging should the game be?</p>
+      <div class="difficulty-list">
+        <button class="difficulty selected" data-level="easy"><span>🌱</span><b>Easy</b><small>6-letter words or less</small></button>
+        <button class="difficulty" data-level="medium"><span>🌼</span><b>Medium</b><small>7–9 letter words</small></button>
+        <button class="difficulty" data-level="hard"><span>🌳</span><b>Hard</b><small>10 letters or more</small></button>
+        <button class="difficulty" data-level="expert"><span>🔥</span><b>Expert</b><small>Fewer chances</small></button>
+      </div>
+      <div class="nav-row"><button class="secondary-btn" data-back="categoryScreen">← Back</button><button class="primary-btn" id="playBtn">Play Game →</button></div>
+    </section>
+
+    <section id="gameScreen" class="screen hidden">
+      <div class="game-heading">
+        <div><h1>Start Playing</h1></div>
+        <button class="secondary-btn small-btn" id="restartBtn">↻ New Word</button>
+      </div>
+      <div class="game-meta"><span id="categoryLabel">Animals</span><span id="levelLabel">Easy</span><span>❤️ <b id="livesLabel">6</b> chances left</span></div>
+      <div class="game-board">
+        <div class="gallows-wrap">
+          <svg class="gallows" viewBox="0 0 220 260" role="img" aria-label="Hangman drawing">
+            <path d="M25 240 H190 M55 240 V20 H150 V48" />
+            <circle id="head" cx="150" cy="72" r="24" class="part"/>
+            <path id="body" d="M150 96 V165" class="part"/>
+            <path id="leftArm" d="M150 112 L115 145" class="part"/>
+            <path id="rightArm" d="M150 112 L185 145" class="part"/>
+            <path id="leftLeg" d="M150 165 L120 205" class="part"/>
+            <path id="rightLeg" d="M150 165 L180 205" class="part"/>
+          </svg>
+          <p class="hint" id="hintText">Hint: A friendly pet</p>
+        </div>
+        <div class="puzzle-wrap">
+          <div class="word" id="wordDisplay"></div>
+          <p class="muted" id="message">Choose a letter to reveal the word.</p>
+          <div class="keyboard" id="keyboard"></div>
+        </div>
+      </div>
+      <div class="game-footer"><button class="secondary-btn" id="changeCategoryBtn">Change Category</button><button class="primary-btn" id="againBtn" disabled>Play Again</button></div>
+    </section>
+
+    <section id="resultScreen" class="screen hidden">
+      <div class="result-icon" id="resultIcon">🎉</div>
+      <h1 id="resultTitle">You won!</h1>
+      <p class="muted" id="resultText"></p>
+      <div class="answer-card">The word was <strong id="answerWord"></strong></div>
+      <button class="primary-btn" id="resultPlayBtn">Play Another Round →</button>
+      <button class="text-btn" id="homeBtn">Back to Home</button>
+    </section>
+
+    <footer>Made for curious minds <span>✦</span> HangMan Adventure</footer>
+  </main>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
